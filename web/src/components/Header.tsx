@@ -9,10 +9,10 @@ export function Header() {
       <section className="">
         <ul className="flex gap-5">
           <li>
-            <Anchor to="/todo">
+            <Anchor to="/tasks">
               <div className="flex items-center gap-1">
                 <ListChecks size={20} />
-                ToDo
+                Tasks
               </div>
             </Anchor>
           </li>
