@@ -1,6 +1,6 @@
 interface IAnchor {
   to: string;
-  children: JSX.Element | string;
+  children?: JSX.Element | string;
 }
 
 export function Anchor({ to, children }: IAnchor) {
