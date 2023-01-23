@@ -9,8 +9,7 @@ export function Home() {
             style={{
                 backgroundImage: "url(/bg-texture-2.svg)"
             }}
-            className="flex flex-col gap-8 flex-1 mt-14 items-center justify-center bg-bg- text-white">
-                <h1>Home page</h1>
+            className="flex flex-col gap-8 flex-1 mt-14 items-center justify-center  text-white">
                 <LoginForm />
             </main>
         </div>

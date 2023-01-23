@@ -32,7 +32,7 @@ export function LoginForm() {
   }, []);
 
   return (
-    <div className="flex flex-col items-center p-6 min-w-[350px] gap-4 min-h-[400px] rounded-lg shadow-4xl drop-shadow-2xl bg-ctp-surface0">
+    <div className="flex flex-col items-center justify-between p-6 min-w-[350px] min-h-[400px] md:min-w-[700px] md:min-h-[500px] gap-4 rounded-lg shadow-4xl drop-shadow-2xl bg-ctp-crust bg-opacity-90 backdrop-blur-md transition-all">
       <div id="signInDiv" />
       <form className="flex items-center gap-4 justify-center rounded-lg flex-col w-full p-4">
         <div className="flex flex-col w-full gap-6">
@@ -59,7 +59,7 @@ export function LoginForm() {
           login
         </button>
       </form>
-      <div className="flex flex-col gap-2 border-t-[1px] border-ctp-overlay0 w-full">
+      <div className="flex flex-col gap-2 mb-4 border-t-[1px] border-ctp-overlay0 w-full">
         <Anchor to="#">register</Anchor>
         <Anchor to="#">reset password</Anchor>
       </div>
