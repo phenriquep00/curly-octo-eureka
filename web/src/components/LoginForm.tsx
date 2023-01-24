@@ -32,20 +32,20 @@ export function LoginForm() {
   }, []);
 
   return (
-    <div className="flex flex-col items-center justify-between p-6 min-w-[350px] min-h-[400px] md:min-w-[700px] md:min-h-[500px] gap-4 rounded-lg shadow-4xl drop-shadow-2xl bg-ctp-crust bg-opacity-90 backdrop-blur-md transition-all">
+    <div className="flex fixed flex-col items-center justify-between p-6 w-[350px] h-[420px] md:w-[700px] md:h-[500px] gap-4 rounded-lg shadow-4xl drop-shadow-2xl bg-ctp-crust bg-opacity-90 backdrop-blur-md transition-all">
       <div id="signInDiv" />
       <form className="flex items-center gap-4 justify-center rounded-lg flex-col w-full p-4">
         <div className="flex flex-col w-full gap-6">
           <input
-            className="p-4 rounded-md bg-ctp-surface2 border border-ctp-overlay1 text-ctp-text text-md font-medium placeholder:font-medium placeholder:text-ctp-subtext0"
-            placeholder="johndoe@somemail.com"
+            className="p-4 rounded-md bg-ctp-surface2 border-2 border-ctp-overlay1 text-ctp-text text-md font-medium placeholder:font-medium placeholder:text-ctp-subtext0 focus:bg-ctp-crust focus:ring-2 ring-ctp-green focus:outline-none focus:border-none ring-offset-1 ring-offset-ctp-crust transition-all"
+            placeholder="✉️  johndoe@somemail.com"
             type="email"
             name="email"
             id="email"
           />
           <input
-            className="p-4 rounded-md bg-ctp-surface2 border border-ctp-overlay1 text-ctp-text text-md font-medium placeholder:font-medium placeholder:text-ctp-subtext0"
-            placeholder="********"
+            className="p-4 rounded-md bg-ctp-surface2 border-2 border-ctp-overlay1 text-ctp-text text-md font-medium placeholder:font-medium placeholder:text-ctp-subtext0 focus:bg-ctp-crust focus:ring-2 ring-ctp-green focus:outline-none ring-offset-1 focus:border-none ring-offset-ctp-crust transition-all"
+            placeholder="🔑  ********"
             type="password"
             name="password"
             id="password"
@@ -59,7 +59,8 @@ export function LoginForm() {
           login
         </button>
       </form>
-      <div className="flex flex-col gap-2 mb-4 border-t-[1px] border-ctp-overlay0 w-full">
+      {/* redirect user to register or password recovery pages*/}
+      <div className="flex flex-col gap-1 border-t-[1px] border-ctp-overlay0 w-full">
         <Anchor to="#">register</Anchor>
         <Anchor to="#">reset password</Anchor>
       </div>
