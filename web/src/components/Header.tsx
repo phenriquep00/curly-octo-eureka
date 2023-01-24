@@ -15,7 +15,7 @@ export function Header() {
               className="flex items-center justify-center text-ctp-subtext1 font-semibold text-lg hover:text-ctp-flamingo transition-colors"
             >
               <div className="flex items-center gap-1">
-                <ListChecks size={20} weight="bold"/>
+                <ListChecks size={20} weight="bold" />
                 Tasks
               </div>
             </Anchor>
@@ -28,7 +28,7 @@ export function Header() {
               className="flex items-center justify-center text-ctp-subtext1 font-semibold text-lg hover:text-ctp-flamingo transition-colors"
             >
               <div className="flex items-center gap-1">
-                <CalendarPlus size={20} weight="bold"/>
+                <CalendarPlus size={20} weight="bold" />
                 Calendar
               </div>
             </Anchor>
@@ -40,7 +40,7 @@ export function Header() {
               className="flex items-center justify-center text-ctp-subtext1 font-semibold text-lg hover:text-ctp-flamingo transition-colors"
             >
               <div className="flex items-center gap-1">
-                <NotePencil size={20} weight="bold"/>
+                <NotePencil size={20} weight="bold" />
                 Notes
               </div>
             </Anchor>
