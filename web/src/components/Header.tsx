@@ -11,10 +11,11 @@ export function Header() {
           <li>
             <Anchor
               href="/tasks"
-              className="flex items-center justify-center text-ctp-subtext1 font-medium text-lg hover:text-ctp-flamingo transition-colors"
+              title="jump to tasks page"
+              className="flex items-center justify-center text-ctp-subtext1 font-semibold text-lg hover:text-ctp-flamingo transition-colors"
             >
               <div className="flex items-center gap-1">
-                <ListChecks size={20} />
+                <ListChecks size={20} weight="bold"/>
                 Tasks
               </div>
             </Anchor>
@@ -23,10 +24,11 @@ export function Header() {
           <li>
             <Anchor
               href="/calendar"
-              className="flex items-center justify-center text-ctp-subtext1 font-medium text-lg hover:text-ctp-flamingo transition-colors"
+              title="jump to calendar page"
+              className="flex items-center justify-center text-ctp-subtext1 font-semibold text-lg hover:text-ctp-flamingo transition-colors"
             >
               <div className="flex items-center gap-1">
-                <CalendarPlus size={20} />
+                <CalendarPlus size={20} weight="bold"/>
                 Calendar
               </div>
             </Anchor>
@@ -34,10 +36,11 @@ export function Header() {
           <li>
             <Anchor
               href="/notes"
-              className="flex items-center justify-center text-ctp-subtext1 font-medium text-lg hover:text-ctp-flamingo transition-colors"
+              title="jump to notes page"
+              className="flex items-center justify-center text-ctp-subtext1 font-semibold text-lg hover:text-ctp-flamingo transition-colors"
             >
               <div className="flex items-center gap-1">
-                <NotePencil size={20} />
+                <NotePencil size={20} weight="bold"/>
                 Notes
               </div>
             </Anchor>

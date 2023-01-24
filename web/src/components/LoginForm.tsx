@@ -60,26 +60,36 @@ export function LoginForm() {
         </div>
 
         <Button
-          className="p-3 bg-ctp-green w-1/2 rounded font-semibold text-ctp-surface1 border border-ctp-surface1 text-lg hover:bg-opacity-80 hover:text-ctp-text transition-colors"
+          className="p-3 bg-ctp-green w-1/2 rounded font-semibold text-ctp-surface1 border border-ctp-surface1 text-lg hover:bg-opacity-80 hover:text-ctp-text hover:animate-pulse focus:animate-pulse focus:outline-none focus:ring ring-offset-1 focus:border-none ring-ctp-mauve ring-offset-ctp-crust transition-all ease-in-out"
           type="submit"
+          title="click here to log in"
         >
           login
         </Button>
       </form>
       {/* redirect user to register or password recovery pages*/}
-      <div className="flex flex-col gap-1 mb-6 border-t-[1px] border-ctp-overlay0 w-full">
-        <Anchor
-          className="flex items-center justify-center text-ctp-subtext1 font-medium text-base underline hover:text-ctp-peach transition-colors"
-          href="#"
-        >
-          register
-        </Anchor>
-        <Anchor
-          className="flex items-center justify-center text-ctp-subtext1 font-medium text-base underline hover:text-ctp-peach transition-colors"
-          href="#"
-        >
-          reset password
-        </Anchor>
+      <div className="flex flex-col gap-1 mb-6 border-t border-ctp-overlay0 w-full">
+        <p className="flex mt-1 items-center justify-center text-ctp-subtext1 font-medium text-base ">
+          Don't have a account? &nbsp;
+          <Anchor
+            title="click here to be redirected to the registration page"
+            className="underline text-ctp-peach hover:text-ctp-yellow transition-colors"
+            href="#"
+          >
+            register here!
+          </Anchor>
+        </p>
+
+        <p className="flex mt-1 items-center justify-center text-ctp-subtext1 font-medium text-base ">
+          Forgot your password?  &nbsp;
+          <Anchor
+            title="click here to be redirected to the registration page"
+            className="underline text-ctp-peach hover:text-ctp-yellow transition-colors"
+            href="#"
+          >
+            reset password!
+          </Anchor>
+        </p>
       </div>
     </div>
   );
