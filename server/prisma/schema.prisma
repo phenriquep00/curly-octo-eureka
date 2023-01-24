@@ -18,7 +18,7 @@ model User {
   password   String
   pictureUrl String
   created_at DateTime
-  
+
   tasklists  Tasklist[]
 
   @@map("user")
@@ -45,7 +45,7 @@ model Task {
   completed   Boolean
   created_at  DateTime
 
-  Tasklist   Tasklist? @relation(fields: [tasklistId], references: [id])
+  tasklist   Tasklist? @relation(fields: [tasklistId], references: [id])
   tasklistId String?
 
   @@map("task")
