@@ -6,7 +6,7 @@ export function Header() {
   return (
     <header className="fixed px-4 shadow-3xl drop-shadow-2xl flex items-center justify-between top-0 bg-ctp-crust w-screen h-14">
       <Logo />
-      <section className="">
+      <nav className="">
         <ul className="flex gap-5">
           <li>
             <Anchor
@@ -46,7 +46,7 @@ export function Header() {
             </Anchor>
           </li>
         </ul>
-      </section>
+      </nav>
     </header>
   );
 }
