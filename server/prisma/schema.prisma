@@ -9,3 +9,44 @@ datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
 }
+
+// user model
+model User {
+  id         String     @id @default(uuid())
+  username   String
+  email      String
+  password   String
+  pictureUrl String
+  created_at DateTime
+  
+  tasklists  Tasklist[]
+
+  @@map("user")
+}
+
+// tasklist model
+model Tasklist {
+  id         String   @id @default(uuid())
+  name       String
+  created_at DateTime
+  tasks      Task[]
+
+  user   User?   @relation(fields: [userId], references: [id])
+  userId String?
+
+  @@map("tasklist")
+}
+
+// task model
+model Task {
+  id          String   @id @default(uuid())
+  name        String
+  description String
+  completed   Boolean
+  created_at  DateTime
+
+  Tasklist   Tasklist? @relation(fields: [tasklistId], references: [id])
+  tasklistId String?
+
+  @@map("task")
+}
