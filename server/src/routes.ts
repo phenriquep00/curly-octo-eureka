@@ -8,7 +8,7 @@ export async function appRoutes(app: FastifyInstance) {
     return "hello";
   });
 
-  // get users
+  // get all users
   app.get("/users", async () => {
     const users = await prisma.user.findMany({
       select: {
@@ -42,4 +42,24 @@ export async function appRoutes(app: FastifyInstance) {
     return users;
   });
 
+  // get user by email
+  // this route is used to validate login /create new user
+  app.get("/user/:email", async (request, response) => {
+    const getUserParams = z.object({
+      email: z.string(),
+    });
+
+    const { email } = getUserParams.parse(request.params);
+
+    const userFromDb = await prisma.user.findUnique({
+      where: {
+        email,
+      },
+    });
+
+    // if the user exists return the object, else return false to indicate front end
+    // to sinilize the user to create a account
+    if (userFromDb) return userFromDb;
+    else return false;
+  });
 }

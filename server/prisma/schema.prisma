@@ -21,6 +21,7 @@ model User {
 
   tasklists  Tasklist[]
 
+  @@unique([email])
   @@map("user")
 }
 
