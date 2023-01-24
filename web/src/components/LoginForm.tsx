@@ -5,22 +5,14 @@ import jwt_decode from "jwt-decode";
 import { Button } from "./Button";
 import { api } from "../lib/axios";
 import { UserContext } from "../hooks/UserContext";
-
-interface IUserFromDb {
-  id: string;
-  username: string;
-  email: string;
-  password: string;
-  pictureUrl: string;
-  created_at: Date;
-}
+import { IUser } from "../utils/types";
 
 export function LoginForm() {
   const { user, setUser } = useContext(UserContext);
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  const [userFromDb, setUserFromDb] = useState<IUserFromDb | any>({});
+  const [userFromDb, setUserFromDb] = useState<IUser | any>({});
 
   const submitRef = useRef();
 
@@ -70,6 +62,7 @@ export function LoginForm() {
       //TODO: validate the user password before logging in;
 
       setUser(JSON.stringify(userFromDb));
+      window.location.assign("/tasks");
     } else {
       console.log("this email is not in the db");
     }
