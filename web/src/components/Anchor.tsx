@@ -1,16 +1,9 @@
-interface IAnchor {
-  to: string;
+import { AnchorHTMLAttributes } from "react";
+
+interface IAnchor extends AnchorHTMLAttributes<HTMLAnchorElement> {
   children?: JSX.Element | string;
 }
 
-export function Anchor({ to, children }: IAnchor) {
-  return (
-    <a
-      className="flex items-center justify-center text-ctp-subtext1 font-medium text-lg hover:text-ctp-flamingo transition-colors"
-      target="_self"
-      href={to}
-    >
-      {children}
-    </a>
-  );
+export function Anchor({ children, ...rest }: IAnchor) {
+  return <a {...rest}>{children}</a>;
 }

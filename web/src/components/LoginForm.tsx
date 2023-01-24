@@ -1,16 +1,20 @@
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { Anchor } from "./Anchor";
 
 import jwt_decode from "jwt-decode";
+import { Button } from "./Button";
 
 export function LoginForm() {
-
   const [user, setuser] = useState<any>({});
 
   const handleCallbackResponse = (response: any) => {
     console.log(response.credential);
 
     var userObject = jwt_decode(response.credential);
+  };
+
+  const handleLogin = (e: FormEvent) => {
+    e.preventDefault();
   };
 
   useEffect(() => {
@@ -34,7 +38,10 @@ export function LoginForm() {
   return (
     <div className="flex fixed flex-col items-center justify-between p-6 w-[350px] h-[420px] md:w-[700px] md:h-[500px] gap-4 rounded-lg shadow-4xl drop-shadow-2xl bg-ctp-crust bg-opacity-90 backdrop-blur-md transition-all">
       <div id="signInDiv" />
-      <form className="flex items-center gap-4 justify-center rounded-lg flex-col w-full p-4">
+      <form
+        onSubmit={handleLogin}
+        className="flex items-center gap-4 justify-center rounded-lg flex-col w-full p-4"
+      >
         <div className="flex flex-col w-full gap-6">
           <input
             className="p-4 rounded-md bg-ctp-surface2 border-2 border-ctp-overlay1 text-ctp-text text-md font-medium placeholder:font-medium placeholder:text-ctp-subtext0 focus:bg-ctp-crust focus:ring-2 ring-ctp-green focus:outline-none focus:border-none ring-offset-1 ring-offset-ctp-crust transition-all"
@@ -52,17 +59,27 @@ export function LoginForm() {
           />
         </div>
 
-        <button
+        <Button
           className="p-3 bg-ctp-green w-1/2 rounded font-semibold text-ctp-surface1 border border-ctp-surface1 text-lg hover:bg-opacity-80 hover:text-ctp-text transition-colors"
           type="submit"
         >
           login
-        </button>
+        </Button>
       </form>
       {/* redirect user to register or password recovery pages*/}
-      <div className="flex flex-col gap-1 border-t-[1px] border-ctp-overlay0 w-full">
-        <Anchor to="#">register</Anchor>
-        <Anchor to="#">reset password</Anchor>
+      <div className="flex flex-col gap-1 mb-6 border-t-[1px] border-ctp-overlay0 w-full">
+        <Anchor
+          className="flex items-center justify-center text-ctp-subtext1 font-medium text-base underline hover:text-ctp-peach transition-colors"
+          href="#"
+        >
+          register
+        </Anchor>
+        <Anchor
+          className="flex items-center justify-center text-ctp-subtext1 font-medium text-base underline hover:text-ctp-peach transition-colors"
+          href="#"
+        >
+          reset password
+        </Anchor>
       </div>
     </div>
   );
