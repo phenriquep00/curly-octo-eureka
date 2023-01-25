@@ -6,6 +6,7 @@ import { Button } from "./Button";
 import { api } from "../lib/axios";
 import { UserContext } from "../hooks/UserContext";
 import { IUser } from "../utils/types";
+import { EmailInput } from "./form-components/emailInput";
 
 export function LoginForm() {
   const { user, setUser } = useContext(UserContext);
@@ -84,15 +85,7 @@ export function LoginForm() {
         className="flex items-center gap-4 justify-center rounded-lg flex-col w-full p-4"
       >
         <div className="flex flex-col w-full gap-6">
-          <input
-            className="p-4 rounded-md bg-ctp-surface2 border-2 border-ctp-overlay1 text-ctp-text text-md font-medium placeholder:font-medium placeholder:text-ctp-subtext0 focus:bg-ctp-crust focus:ring-2 ring-ctp-green focus:outline-none focus:border-none ring-offset-1 ring-offset-ctp-crust transition-all"
-            placeholder="✉️  johndoe@somemail.com"
-            onChange={(e) => setEmail(e.target.value)}
-            value={email}
-            type="email"
-            name="email"
-            id="email"
-          />
+          <EmailInput action={setEmail} value={email} />
           <input
             className="p-4 rounded-md bg-ctp-surface2 border-2 border-ctp-overlay1 text-ctp-text text-md font-medium placeholder:font-medium placeholder:text-ctp-subtext0 focus:bg-ctp-crust focus:ring-2 ring-ctp-green focus:outline-none ring-offset-1 focus:border-none ring-offset-ctp-crust transition-all"
             placeholder="🔑  ********"
