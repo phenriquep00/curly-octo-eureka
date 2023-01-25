@@ -1,4 +1,4 @@
-import { FormEvent, useContext, useEffect, useRef, useState } from "react";
+import { FormEvent, useContext, useEffect, useState } from "react";
 import { Anchor } from "./Anchor";
 
 import jwt_decode from "jwt-decode";
@@ -6,16 +6,19 @@ import { Button } from "./Button";
 import { api } from "../lib/axios";
 import { UserContext } from "../hooks/UserContext";
 import { IUser } from "../utils/types";
-import { EmailInput } from "./form-components/emailInput";
+import { EmailInput } from "./form/EmailInput";
+import ReactLoading from "react-loading";
 
 export function LoginForm() {
   const { user, setUser } = useContext(UserContext);
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
+  const [alertStatus, setAlertStatus] = useState(false);
+
   const [userFromDb, setUserFromDb] = useState<IUser | any>({});
 
-  const submitRef = useRef();
+  const [loading, setLoading] = useState(false);
 
   // handle google login
   const handleCallbackResponse = (response: any) => {
@@ -27,14 +30,22 @@ export function LoginForm() {
   // handle login
   const handleLogin = async (e: FormEvent) => {
     e.preventDefault();
+    setLoading(true);
+    setAlertStatus(false);
 
     // validate info from form
-    if (email.trim() === "" || password.trim() === "") return;
+    if (email.trim() === "" || password.trim() === "") {
+      setLoading(false);
+      setAlertStatus(true);
+      return
+    };
 
     // get info from db
     await api.get(`/user/${email}`).then((response) => {
       setUserFromDb(response.data);
     });
+
+    setLoading(false);
   };
 
   // google auth
@@ -56,30 +67,25 @@ export function LoginForm() {
     google.accounts.id.prompt();
   }, []);
 
-  // everytime the user from db changes (only happens when the submit button is clicked)
-  // check if the user exists on t he db, if it does, change the user context to it's value, else
-  // tell the user to create a account
   useEffect(() => {
-    if (userFromDb.email) {
-      //TODO: validate the user password before logging in;
-      // the user email is in the database, then, check if the password matches the one in the db
-
-      if (userFromDb.password === password) {
-        console.log("login succesful");
+    if (userFromDb.id) {
+      if (password === userFromDb.password) {
+        console.log("passwords match");
         setUser(JSON.stringify(userFromDb));
         window.location.assign("/tasks");
-      } else {
-        console.log("invalid password");
-        return;
-      }
-    } else {
-      console.log("this email is not in the db");
+      } else setAlertStatus(true);
     }
   }, [userFromDb]);
 
   return (
     <div className="flex fixed flex-col items-center justify-between p-6 w-[350px] h-[420px] md:w-[700px] md:h-[500px] gap-4 rounded-lg shadow-4xl drop-shadow-2xl bg-ctp-crust bg-opacity-90 backdrop-blur-md transition-all">
       <div id="signInDiv" />
+      {alertStatus && (
+        <span className="bg-ctp-red border-ctp-mauve border-2 p-2 bg-opacity-50 w-full text-center rounded-md text-ctp-text transition-all">
+          {" "}
+          Couldn't log in, please verify your email and password!
+        </span>
+      )}
       <form
         onSubmit={handleLogin}
         className="flex items-center gap-4 justify-center rounded-lg flex-col w-full p-4"
@@ -102,7 +108,13 @@ export function LoginForm() {
           type="submit"
           title="click here to log in"
         >
-          login
+          {loading ? (
+            <div className="flex justify-center items-center ">
+              <ReactLoading type={"cylon"} width={"30%"} height={"30%"}/>
+            </div>
+          ) : (
+            "Login"
+          )}
         </Button>
       </form>
       {/* redirect user to register or password recovery pages*/}
