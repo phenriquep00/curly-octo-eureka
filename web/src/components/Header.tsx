@@ -1,14 +1,19 @@
 import { CalendarPlus, ListChecks, NotePencil } from "phosphor-react";
 import { Anchor } from "./Anchor";
 import { Logo } from "../assets/Logo";
+import { useContext } from "react";
+import { UserContext } from "../hooks/UserContext";
 
 export function Header() {
+  const { user, setUser } = useContext(UserContext);
+  const isDisabled = user ? false : true;
+
   return (
     <header className="fixed px-4 shadow-3xl drop-shadow-2xl flex items-center justify-between top-0 bg-ctp-crust w-screen h-14">
       <Logo />
       <nav className="">
         <ul className="flex gap-5">
-          <li>
+          <li className={`${isDisabled && 'cursor-not-allowed'}`}>
             <Anchor
               href="/tasks"
               title="jump to tasks page"
@@ -21,7 +26,7 @@ export function Header() {
             </Anchor>
           </li>
 
-          <li>
+          <li className={`${isDisabled && 'cursor-not-allowed'}`}>
             <Anchor
               href="/calendar"
               title="jump to calendar page"
@@ -33,7 +38,7 @@ export function Header() {
               </div>
             </Anchor>
           </li>
-          <li>
+          <li className={`${isDisabled && 'cursor-not-allowed'}`}>
             <Anchor
               href="/notes"
               title="jump to notes page"
