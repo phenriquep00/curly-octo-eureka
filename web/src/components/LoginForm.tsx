@@ -36,6 +36,7 @@ export function LoginForm() {
     });
   };
 
+  // google auth
   useEffect(() => {
     /* global google */
     // @ts-ignore
@@ -60,9 +61,16 @@ export function LoginForm() {
   useEffect(() => {
     if (userFromDb.email) {
       //TODO: validate the user password before logging in;
+      // the user email is in the database, then, check if the password matches the one in the db
 
-      setUser(JSON.stringify(userFromDb));
-      window.location.assign("/tasks");
+      if (userFromDb.password === password) {
+        console.log("login succesful");
+        setUser(JSON.stringify(userFromDb));
+        window.location.assign("/tasks");
+      } else {
+        console.log("invalid password");
+        return;
+      }
     } else {
       console.log("this email is not in the db");
     }
