@@ -110,7 +110,7 @@ export function LoginForm() {
         >
           {loading ? (
             <div className="flex justify-center items-center ">
-              <ReactLoading type={"cylon"} width={"30%"} height={"30%"}/>
+              <ReactLoading type={"cylon"} width={"40px"} height={"30px"}/>
             </div>
           ) : (
             "Login"

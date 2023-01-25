@@ -13,11 +13,11 @@ export function Header() {
       <Logo />
       <nav className="">
         <ul className="flex gap-5">
-          <li className={`${isDisabled && 'cursor-not-allowed'}`}>
+          <li >
             <Anchor
               href="/tasks"
               title="jump to tasks page"
-              className="flex items-center justify-center text-ctp-subtext1 font-semibold text-lg hover:text-ctp-flamingo transition-colors"
+              className={`${isDisabled && 'cursor-not-allowed'} flex items-center justify-center text-ctp-subtext1 font-semibold text-lg hover:text-ctp-flamingo transition-colors`}
             >
               <div className="flex items-center gap-1">
                 <ListChecks size={20} weight="bold" />
@@ -26,11 +26,11 @@ export function Header() {
             </Anchor>
           </li>
 
-          <li className={`${isDisabled && 'cursor-not-allowed'}`}>
+          <li >
             <Anchor
               href="/calendar"
               title="jump to calendar page"
-              className="flex items-center justify-center text-ctp-subtext1 font-semibold text-lg hover:text-ctp-flamingo transition-colors"
+              className={`${isDisabled && 'cursor-not-allowed'} flex items-center justify-center text-ctp-subtext1 font-semibold text-lg hover:text-ctp-flamingo transition-colors`}
             >
               <div className="flex items-center gap-1">
                 <CalendarPlus size={20} weight="bold" />
@@ -38,11 +38,11 @@ export function Header() {
               </div>
             </Anchor>
           </li>
-          <li className={`${isDisabled && 'cursor-not-allowed'}`}>
+          <li >
             <Anchor
               href="/notes"
               title="jump to notes page"
-              className="flex items-center justify-center text-ctp-subtext1 font-semibold text-lg hover:text-ctp-flamingo transition-colors"
+              className={`${isDisabled && 'cursor-not-allowed'} flex items-center justify-center text-ctp-subtext1 font-semibold text-lg hover:text-ctp-flamingo transition-colors`}
             >
               <div className="flex items-center gap-1">
                 <NotePencil size={20} weight="bold" />
