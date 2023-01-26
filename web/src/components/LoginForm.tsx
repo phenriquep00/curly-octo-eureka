@@ -22,29 +22,32 @@ export function LoginForm() {
 
   // handle google login
   const handleCallbackResponse = (response: any) => {
-    console.log(response.credential);
 
-    var userObject = jwt_decode(response.credential);
+    var userObject: any = jwt_decode(response.credential);
+    // get email from google
+    const googleEmail = userObject.email;
+    
+    // check if the email from google is in the database, if so change userFromDb
+    // to the user with that email, if not create a account 
+    // with that email
   };
 
   // handle login
-  const handleLogin = async (e: FormEvent) => {
+  const handleLogin = async (e: FormEvent ) => {
     e.preventDefault();
     setLoading(true);
-    setAlertStatus(false);
 
     // validate info from form
     if (email.trim() === "" || password.trim() === "") {
       setLoading(false);
       setAlertStatus(true);
-      return
-    };
+      return;
+    }
 
     // get info from db
     await api.get(`/user/${email}`).then((response) => {
       setUserFromDb(response.data);
     });
-
     setLoading(false);
   };
 
@@ -52,29 +55,34 @@ export function LoginForm() {
   useEffect(() => {
     /* global google */
     // @ts-ignore
-    google.accounts.id.initialize({
-      client_id:
-        "635718201896-1v05hgpg57pj74e9709e6qh92ram5284.apps.googleusercontent.com",
-      callback: handleCallbackResponse,
-    });
+    if (google) {
+      /* global google */
+      // @ts-ignore
+      google.accounts.id.initialize({
+        client_id:
+          "635718201896-1v05hgpg57pj74e9709e6qh92ram5284.apps.googleusercontent.com",
+        callback: handleCallbackResponse,
+      });
 
-    // @ts-ignore
-    google.accounts.id.renderButton(document.getElementById("signInDiv"), {
-      theme: "outline",
-      size: "large",
-    });
-    // @ts-ignore
-    google.accounts.id.prompt();
+      // @ts-ignore
+      google.accounts.id.renderButton(document.getElementById("signInDiv"), {
+        theme: "outline",
+        size: "large",
+      });
+      // @ts-ignore
+      google.accounts.id.prompt();
+    }
   }, []);
 
   useEffect(() => {
+    console.log(userFromDb.email)
     if (userFromDb.id) {
       if (password === userFromDb.password) {
         console.log("passwords match");
         setUser(JSON.stringify(userFromDb));
         window.location.assign("/tasks");
-      } else setAlertStatus(true);
-    }
+      } else setAlertStatus(true)
+    } else if (userFromDb === false) setAlertStatus(true);
   }, [userFromDb]);
 
   return (
@@ -82,7 +90,6 @@ export function LoginForm() {
       <div id="signInDiv" />
       {alertStatus && (
         <span className="bg-ctp-red border-ctp-mauve border-2 p-2 bg-opacity-50 w-full text-center rounded-md text-ctp-text transition-all">
-          {" "}
           Couldn't log in, please verify your email and password!
         </span>
       )}
@@ -110,7 +117,7 @@ export function LoginForm() {
         >
           {loading ? (
             <div className="flex justify-center items-center ">
-              <ReactLoading type={"cylon"} width={"40px"} height={"30px"}/>
+              <ReactLoading type={"cylon"} width={"40px"} height={"30px"} />
             </div>
           ) : (
             "Login"
