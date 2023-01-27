@@ -21,19 +21,29 @@ export function LoginForm() {
   const [loading, setLoading] = useState(false);
 
   // handle google login
-  const handleCallbackResponse = (response: any) => {
-
+  const handleCallbackResponse = async (response: any) => {
     var userObject: any = jwt_decode(response.credential);
     // get email from google
     const googleEmail = userObject.email;
-    
+
     // check if the email from google is in the database, if so change userFromDb
-    // to the user with that email, if not create a account 
+    // to the user with that email, if not create a account
     // with that email
+    await api.get(`/user/${email}`).then((response) => {
+      setUserFromDb(response.data);
+    });
+
+    if (userFromDb.email) {
+      // the user is already registered
+      setUser(JSON.stringify(userFromDb));
+      window.location.assign("/tasks");
+    } else if (userFromDb === false) {
+      // the user is not registered
+    }
   };
 
   // handle login
-  const handleLogin = async (e: FormEvent ) => {
+  const handleLogin = async (e: FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
@@ -75,13 +85,13 @@ export function LoginForm() {
   }, []);
 
   useEffect(() => {
-    console.log(userFromDb.email)
+    console.log(userFromDb.email);
     if (userFromDb.id) {
       if (password === userFromDb.password) {
         console.log("passwords match");
         setUser(JSON.stringify(userFromDb));
         window.location.assign("/tasks");
-      } else setAlertStatus(true)
+      } else setAlertStatus(true);
     } else if (userFromDb === false) setAlertStatus(true);
   }, [userFromDb]);
 
