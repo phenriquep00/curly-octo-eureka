@@ -22,24 +22,33 @@ export function LoginForm() {
 
   // handle google login
   const handleCallbackResponse = async (response: any) => {
-    var userObject: any = jwt_decode(response.credential);
+    var googleUserObject: any = jwt_decode(response.credential);
     // get email from google
-    const googleEmail = userObject.email;
+    const googleEmail = googleUserObject.email;
+
+    // TODO: fix the login in case the user has to be created first
+    // possible problems: the setUserFromDb is forcing the useEffect to run berofe the user gets created
+    // because it is returning undefined in the log
 
     // check if the email from google is in the database, if so change userFromDb
     // to the user with that email, if not create a account
     // with that email
-    await api.get(`/user/${email}`).then((response) => {
+    await api.get(`/user/${googleEmail}`).then(async (response) => {
+      if (response.data === false) {
+        // the user is not registered
+        // proceed to create the user
+        // TODO: add a try catch block
+        await api
+          .post("/user", {
+            username: googleUserObject.name,
+            email: googleUserObject.email,
+            password: "logged from google auth",
+            pictureUrl: googleUserObject.picture,
+          })
+          .then(() => console.log("new user created"))
+      }
       setUserFromDb(response.data);
     });
-
-    if (userFromDb.email) {
-      // the user is already registered
-      setUser(JSON.stringify(userFromDb));
-      window.location.assign("/tasks");
-    } else if (userFromDb === false) {
-      // the user is not registered
-    }
   };
 
   // handle login
