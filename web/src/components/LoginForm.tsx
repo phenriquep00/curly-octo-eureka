@@ -22,6 +22,7 @@ export function LoginForm() {
 
   // handle google login
   const handleCallbackResponse = async (response: any) => {
+    setLoading(true)
     var googleUserObject: any = jwt_decode(response.credential);
     // get email from google
     const googleEmail = googleUserObject.email;
@@ -30,6 +31,10 @@ export function LoginForm() {
     // possible problems: the setUserFromDb is forcing the useEffect to run berofe the user gets created
     // because it is returning undefined in the log
 
+    // TODO: fixed the login problem but the effect is still not working immediatly after the user is created
+
+    // TODO: fix the error messages
+
     // check if the email from google is in the database, if so change userFromDb
     // to the user with that email, if not create a account
     // with that email
@@ -37,18 +42,24 @@ export function LoginForm() {
       if (response.data === false) {
         // the user is not registered
         // proceed to create the user
-        // TODO: add a try catch block
-        await api
-          .post("/user", {
-            username: googleUserObject.name,
-            email: googleUserObject.email,
-            password: "logged from google auth",
-            pictureUrl: googleUserObject.picture,
-          })
-          .then(() => console.log("new user created"))
+        try {
+          await api
+            .post("/user", {
+              username: googleUserObject.name,
+              email: googleUserObject.email,
+              password: "logged from google auth",
+              pictureUrl: googleUserObject.picture,
+            })
+            .then(() => console.log("new user created"));
+        } catch (error) {
+          console.log(error);
+          setAlertStatus(true);
+        }
       }
       setUserFromDb(response.data);
     });
+
+    setLoading(false)
   };
 
   // handle login
@@ -64,9 +75,14 @@ export function LoginForm() {
     }
 
     // get info from db
-    await api.get(`/user/${email}`).then((response) => {
-      setUserFromDb(response.data);
-    });
+    try {
+      await api.get(`/user/${email}`).then((response) => {
+        setUserFromDb(response.data);
+      });
+    } catch (error) {
+      console.log(error);
+      setAlertStatus(true);
+    }
     setLoading(false);
   };
 
@@ -96,12 +112,12 @@ export function LoginForm() {
   useEffect(() => {
     console.log(userFromDb.email);
     if (userFromDb.id) {
-      if (password === userFromDb.password) {
+      if (password === userFromDb.password || userFromDb.password === 'logged from google auth') {
         console.log("passwords match");
         setUser(JSON.stringify(userFromDb));
         window.location.assign("/tasks");
-      } else setAlertStatus(true);
-    } else if (userFromDb === false) setAlertStatus(true);
+      } // else setAlertStatus(true);
+    } // else if (userFromDb === false) setAlertStatus(true);
   }, [userFromDb]);
 
   return (
