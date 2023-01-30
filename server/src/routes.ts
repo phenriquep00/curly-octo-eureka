@@ -62,4 +62,46 @@ export async function appRoutes(app: FastifyInstance) {
     if (userFromDb) return userFromDb;
     else return false;
   });
+
+  // create new user route
+  app.post("/user", async (request, reponse) => {
+    const newUserBody = z.object({
+      username: z.string(),
+      email: z.string().email(),
+      password: z.string(),
+      pictureUrl: z.string().url(),
+    });
+
+    // extract the data from request body
+    const { username, email, password, pictureUrl } =
+      newUserBody.parse(request.body);
+
+    // create the user with the info from front-end
+    await prisma.user.create({
+      data: {
+        username,
+        email,
+        password,
+        pictureUrl,
+        created_at: new Date(),
+        tasklists: {
+          create: {
+            name: "Welcome",
+            created_at: new Date(),
+            tasks: {
+              create: {
+                name: "first task",
+                description:
+                  "Welcome! this is your first task, try completing it",
+                completed: false,
+                created_at: new Date(),
+              },
+            },
+          },
+        },
+      },
+    });
+
+
+  });
 }
