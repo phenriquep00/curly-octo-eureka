@@ -22,18 +22,14 @@ export function LoginForm() {
 
   // handle google login
   const handleCallbackResponse = async (response: any) => {
-    setLoading(true)
+    setLoading(true);
     var googleUserObject: any = jwt_decode(response.credential);
     // get email from google
     const googleEmail = googleUserObject.email;
 
-    // TODO: fix the login in case the user has to be created first
-    // possible problems: the setUserFromDb is forcing the useEffect to run berofe the user gets created
-    // because it is returning undefined in the log
-
-    // TODO: fixed the login problem but the effect is still not working immediatly after the user is created
-
-    // TODO: fix the error messages
+    // TODO: the problem of logging in with google when the account already exists has been solved
+    // FIXME: but the user is not beeing automatically logged after logging in with google 
+    // FIXME: after the account has been just created
 
     // check if the email from google is in the database, if so change userFromDb
     // to the user with that email, if not create a account
@@ -54,12 +50,17 @@ export function LoginForm() {
         } catch (error) {
           console.log(error);
           setAlertStatus(true);
+        } finally {
+          setTimeout(() => {
+            setUserFromDb(response.data);
+          }, 400);
         }
+      } else {
+        setUserFromDb(response.data);
       }
-      setUserFromDb(response.data);
     });
 
-    setLoading(false)
+    setLoading(false);
   };
 
   // handle login
@@ -112,12 +113,15 @@ export function LoginForm() {
   useEffect(() => {
     console.log(userFromDb.email);
     if (userFromDb.id) {
-      if (password === userFromDb.password || userFromDb.password === 'logged from google auth') {
+      if (
+        password === userFromDb.password ||
+        userFromDb.password === "logged from google auth"
+      ) {
         console.log("passwords match");
         setUser(JSON.stringify(userFromDb));
         window.location.assign("/tasks");
-      } // else setAlertStatus(true);
-    } // else if (userFromDb === false) setAlertStatus(true);
+      } else setAlertStatus(true);
+    } else if (userFromDb === false) setAlertStatus(true);
   }, [userFromDb]);
 
   return (
