@@ -2,15 +2,19 @@ import { useContext, useEffect } from "react";
 import { Header } from "../components/Header";
 import { LoginForm } from "../components/LoginForm";
 import { UserContext } from "../hooks/UserContext";
+import { PageContext } from "../hooks/PageContext";
+import { Tasks } from "./Tasks";
 
 export function Home() {
   const { user, setUser } = useContext(UserContext);
+  const { currentPage, setCurrentPage } = useContext(PageContext);
 
   useEffect(() => {
-    if (user) {
-      window.location.assign("/tasks");
+    if (user !== undefined && user.id) {
+      console.log('here')
+      setCurrentPage(<Tasks />)
     }
-  }, []);
+  }, [user])
 
   return (
     <div className="flex w-screen h-screen">

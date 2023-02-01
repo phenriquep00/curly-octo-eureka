@@ -1,14 +1,14 @@
-import { AnchorHTMLAttributes } from "react";
+import { AnchorHTMLAttributes, ButtonHTMLAttributes } from "react";
 
-interface IAnchor extends AnchorHTMLAttributes<HTMLAnchorElement> {
+interface IAnchor extends ButtonHTMLAttributes<HTMLButtonElement> {
   children?: JSX.Element | string;
   title: string;
 }
 
 export function Anchor({ children, title, ...rest }: IAnchor) {
   return (
-    <a title={title} {...rest}>
+    <button title={title} {...rest}>
       {children}
-    </a>
+    </button>
   );
 }

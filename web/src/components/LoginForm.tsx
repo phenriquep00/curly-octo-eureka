@@ -8,9 +8,13 @@ import { UserContext } from "../hooks/UserContext";
 import { IUser } from "../utils/types";
 import { EmailInput } from "./form/EmailInput";
 import ReactLoading from "react-loading";
+import { PageContext } from "../hooks/PageContext";
+import { Tasks } from "../pages/Tasks";
 
 export function LoginForm() {
   const { user, setUser } = useContext(UserContext);
+  const { currentPage, setCurrentPage } = useContext(PageContext);
+
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
@@ -119,7 +123,7 @@ export function LoginForm() {
       ) {
         console.log("passwords match");
         setUser(JSON.stringify(userFromDb));
-        window.location.assign("/tasks");
+        setCurrentPage(<Tasks />);
       } else setAlertStatus(true);
     } else if (userFromDb === false) setAlertStatus(true);
   }, [userFromDb]);
@@ -167,24 +171,24 @@ export function LoginForm() {
       <div className="flex flex-col gap-1 mb-6 border-t border-ctp-overlay0 w-full">
         <p className="flex mt-1 items-center justify-center text-ctp-subtext1 font-medium text-base ">
           Don't have a account? &nbsp;
-          <Anchor
+          <a
             title="click here to be redirected to the registration page"
             className="underline text-ctp-peach hover:text-ctp-yellow transition-colors"
             href="#"
           >
             register here!
-          </Anchor>
+          </a>
         </p>
 
         <p className="flex mt-1 items-center justify-center text-ctp-subtext1 font-medium text-base ">
           Forgot your password? &nbsp;
-          <Anchor
+          <a
             title="click here to be redirected to the registration page"
             className="underline text-ctp-peach hover:text-ctp-yellow transition-colors"
             href="#"
           >
             reset password!
-          </Anchor>
+          </a>
         </p>
       </div>
     </div>

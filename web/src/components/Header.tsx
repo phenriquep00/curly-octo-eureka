@@ -3,9 +3,14 @@ import { Anchor } from "./Anchor";
 import { Logo } from "../assets/Logo";
 import { useContext } from "react";
 import { UserContext } from "../hooks/UserContext";
+import { PageContext } from "../hooks/PageContext";
+import { Tasks } from "../pages/Tasks";
+import { Calendar } from "../pages/Calendar";
+import { Notes } from "../pages/Notes";
 
 export function Header() {
   const { user, setUser } = useContext(UserContext);
+  const { currentPage, setCurrentPage } = useContext(PageContext);
   const isDisabled = user ? false : true;
 
   return (
@@ -13,11 +18,14 @@ export function Header() {
       <Logo />
       <nav className="">
         <ul className="flex gap-5">
-          <li >
+          <li>
             <Anchor
-              href="/tasks"
+              onClick={() => setCurrentPage(<Tasks />)}
+              disabled={isDisabled}
               title="jump to tasks page"
-              className={`${isDisabled && 'cursor-not-allowed'} flex items-center justify-center text-ctp-subtext1 font-semibold text-lg hover:text-ctp-flamingo transition-colors`}
+              className={`${
+                isDisabled && "cursor-not-allowed"
+              } flex items-center justify-center text-ctp-subtext1 font-semibold text-lg hover:text-ctp-flamingo transition-colors`}
             >
               <div className="flex items-center gap-1">
                 <ListChecks size={20} weight="bold" />
@@ -26,11 +34,14 @@ export function Header() {
             </Anchor>
           </li>
 
-          <li >
+          <li>
             <Anchor
-              href="/calendar"
+              onClick={() => setCurrentPage(<Calendar />)}
+              disabled={isDisabled}
               title="jump to calendar page"
-              className={`${isDisabled && 'cursor-not-allowed'} flex items-center justify-center text-ctp-subtext1 font-semibold text-lg hover:text-ctp-flamingo transition-colors`}
+              className={`${
+                isDisabled && "cursor-not-allowed"
+              } flex items-center justify-center text-ctp-subtext1 font-semibold text-lg hover:text-ctp-flamingo transition-colors`}
             >
               <div className="flex items-center gap-1">
                 <CalendarPlus size={20} weight="bold" />
@@ -38,11 +49,14 @@ export function Header() {
               </div>
             </Anchor>
           </li>
-          <li >
+          <li>
             <Anchor
-              href="/notes"
+              onClick={() => setCurrentPage(<Notes />)}
+              disabled={isDisabled}
               title="jump to notes page"
-              className={`${isDisabled && 'cursor-not-allowed'} flex items-center justify-center text-ctp-subtext1 font-semibold text-lg hover:text-ctp-flamingo transition-colors`}
+              className={`${
+                isDisabled && "cursor-not-allowed"
+              } flex items-center justify-center text-ctp-subtext1 font-semibold text-lg hover:text-ctp-flamingo transition-colors`}
             >
               <div className="flex items-center gap-1">
                 <NotePencil size={20} weight="bold" />
