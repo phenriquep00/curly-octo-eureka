@@ -36,6 +36,8 @@ export function LoginForm() {
     // FIXME: but the user is not beeing automatically logged after logging in with google
     // FIXME: after the account has been just created
 
+    //FIXME: redirect the user imediatly to tasks page if the user context exists
+
     // check if the email from google is in the database, if so change userFromDb
     // to the user with that email, if not create a account
     // with that email
@@ -141,7 +143,7 @@ export function LoginForm() {
         onSubmit={handleLogin}
         className="flex items-center gap-4 justify-center rounded-lg flex-col min-w-full"
       >
-        <div className="flex flex-col w-full mb-4 gap-6">
+        <div className="flex flex-col w-full mt-4 mb-4 gap-6">
           <EmailInput action={setEmail} value={email} />
           <input
             className="p-4 rounded-md bg-ctp-surface2 border-2 border-ctp-overlay1 text-ctp-text text-md font-medium placeholder:font-medium placeholder:text-ctp-subtext0 focus:bg-ctp-crust focus:ring-2 ring-ctp-green focus:outline-none ring-offset-1 focus:border-none ring-offset-ctp-crust transition-all"
@@ -154,11 +156,7 @@ export function LoginForm() {
           />
         </div>
 
-        <Button
-          primary
-          type="submit"
-          title="click here to log in"
-        >
+        <Button primary type="submit" title="click here to log in">
           {loading ? (
             <div className="flex justify-center items-center ">
               <ReactLoading type={"cylon"} width={"40px"} height={"30px"} />
