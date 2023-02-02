@@ -10,6 +10,7 @@ import { EmailInput } from "./form/EmailInput";
 import ReactLoading from "react-loading";
 import { PageContext } from "../hooks/PageContext";
 import { Tasks } from "../pages/Tasks";
+import { Register } from "../pages/Register";
 
 export function LoginForm() {
   const { user, setUser } = useContext(UserContext);
@@ -129,7 +130,7 @@ export function LoginForm() {
   }, [userFromDb]);
 
   return (
-    <div className="flex fixed flex-col items-center p-6 w-[350px] h-[420px] md:w-[700px] md:h-[500px] gap-4 rounded-lg shadow-4xl drop-shadow-2xl bg-ctp-crust bg-opacity-90 backdrop-blur-md transition-all">
+    <div className="flex fixed flex-col items-center p-6 w-[350px] h-[420px] md:w-[700px] md:max-h-[500px] gap-4 rounded-lg shadow-4xl drop-shadow-2xl bg-ctp-crust bg-opacity-90 backdrop-blur-md transition-all">
       <div id="signInDiv" />
       {alertStatus && (
         <span className="bg-ctp-red border-ctp-mauve border-2 p-2 bg-opacity-50 w-full text-center rounded-md text-ctp-text transition-all">
@@ -138,9 +139,9 @@ export function LoginForm() {
       )}
       <form
         onSubmit={handleLogin}
-        className="flex items-center gap-4 justify-center rounded-lg flex-col min-w-full h-max p-4"
+        className="flex items-center gap-4 justify-center rounded-lg flex-col min-w-full"
       >
-        <div className="flex flex-col w-full gap-6">
+        <div className="flex flex-col w-full mb-4 gap-6">
           <EmailInput action={setEmail} value={email} />
           <input
             className="p-4 rounded-md bg-ctp-surface2 border-2 border-ctp-overlay1 text-ctp-text text-md font-medium placeholder:font-medium placeholder:text-ctp-subtext0 focus:bg-ctp-crust focus:ring-2 ring-ctp-green focus:outline-none ring-offset-1 focus:border-none ring-offset-ctp-crust transition-all"
@@ -168,27 +169,27 @@ export function LoginForm() {
         </Button>
       </form>
       {/* redirect user to register or password recovery pages*/}
-      <div className="flex flex-col gap-1 mb-6 border-t border-ctp-overlay0 w-max">
-        <p className="flex mt-1 items-center justify-center text-ctp-subtext1 font-medium text-base ">
+      <div className="flex fixed bottom-4 w-4/5 flex-col gap-1 border-t border-ctp-overlay0">
+        <p className="flex mt-1 items-center justify-center text-ctp-subtext1 font-medium text-base whitespace-nowrap">
           Don't have a account? &nbsp;
-          <a
+          <Button
             title="click here to be redirected to the registration page"
             className="underline text-ctp-peach hover:text-ctp-yellow transition-colors"
-            href="#"
+            onClick={() => setCurrentPage(<Register />)}
           >
             register here!
-          </a>
+          </Button>
         </p>
 
-        <p className="flex mt-1 items-center justify-center text-ctp-subtext1 font-medium text-base ">
+        <p className="flex mt-1 items-center justify-center text-ctp-subtext1 font-medium text-base whitespace-nowrap">
           Forgot your password? &nbsp;
-          <a
+          <Button
             title="click here to be redirected to the registration page"
             className="underline text-ctp-peach hover:text-ctp-yellow transition-colors"
-            href="#"
+            onClick={() => {}}
           >
             reset password!
-          </a>
+          </Button>
         </p>
       </div>
     </div>
