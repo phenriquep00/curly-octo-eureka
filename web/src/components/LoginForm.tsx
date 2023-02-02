@@ -32,7 +32,7 @@ export function LoginForm() {
     const googleEmail = googleUserObject.email;
 
     // TODO: the problem of logging in with google when the account already exists has been solved
-    // FIXME: but the user is not beeing automatically logged after logging in with google 
+    // FIXME: but the user is not beeing automatically logged after logging in with google
     // FIXME: after the account has been just created
 
     // check if the email from google is in the database, if so change userFromDb
@@ -129,7 +129,7 @@ export function LoginForm() {
   }, [userFromDb]);
 
   return (
-    <div className="flex fixed flex-col items-center justify-between p-6 w-[350px] h-[420px] md:w-[700px] md:h-[500px] gap-4 rounded-lg shadow-4xl drop-shadow-2xl bg-ctp-crust bg-opacity-90 backdrop-blur-md transition-all">
+    <div className="flex fixed flex-col items-center p-6 w-[350px] h-[420px] md:w-[700px] md:h-[500px] gap-4 rounded-lg shadow-4xl drop-shadow-2xl bg-ctp-crust bg-opacity-90 backdrop-blur-md transition-all">
       <div id="signInDiv" />
       {alertStatus && (
         <span className="bg-ctp-red border-ctp-mauve border-2 p-2 bg-opacity-50 w-full text-center rounded-md text-ctp-text transition-all">
@@ -138,7 +138,7 @@ export function LoginForm() {
       )}
       <form
         onSubmit={handleLogin}
-        className="flex items-center gap-4 justify-center rounded-lg flex-col w-full p-4"
+        className="flex items-center gap-4 justify-center rounded-lg flex-col min-w-full h-max p-4"
       >
         <div className="flex flex-col w-full gap-6">
           <EmailInput action={setEmail} value={email} />
@@ -154,7 +154,7 @@ export function LoginForm() {
         </div>
 
         <Button
-          className="p-3 bg-ctp-green w-1/2 rounded font-semibold text-ctp-surface1 border border-ctp-surface1 text-lg hover:bg-opacity-80 hover:text-ctp-text hover:animate-pulse focus:outline-none focus:ring ring-offset-1 focus:border-none ring-ctp-mauve ring-offset-ctp-crust transition-all ease-in-out"
+          primary
           type="submit"
           title="click here to log in"
         >
@@ -168,7 +168,7 @@ export function LoginForm() {
         </Button>
       </form>
       {/* redirect user to register or password recovery pages*/}
-      <div className="flex flex-col gap-1 mb-6 border-t border-ctp-overlay0 w-full">
+      <div className="flex flex-col gap-1 mb-6 border-t border-ctp-overlay0 w-max">
         <p className="flex mt-1 items-center justify-center text-ctp-subtext1 font-medium text-base ">
           Don't have a account? &nbsp;
           <a
