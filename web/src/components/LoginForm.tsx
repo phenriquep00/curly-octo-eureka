@@ -11,6 +11,7 @@ import ReactLoading from "react-loading";
 import { PageContext } from "../hooks/PageContext";
 import { Tasks } from "../pages/Tasks";
 import { Register } from "../pages/Register";
+import { PasswordInput } from "./form/PasswordInput";
 
 export function LoginForm() {
   const { user, setUser } = useContext(UserContext);
@@ -145,15 +146,7 @@ export function LoginForm() {
       >
         <div className="flex flex-col w-full mt-4 mb-4 gap-6">
           <EmailInput action={setEmail} value={email} />
-          <input
-            className="p-4 rounded-md bg-ctp-surface2 border-2 border-ctp-overlay1 text-ctp-text text-md font-medium placeholder:font-medium placeholder:text-ctp-subtext0 focus:bg-ctp-crust focus:ring-2 ring-ctp-green focus:outline-none ring-offset-1 focus:border-none ring-offset-ctp-crust transition-all"
-            placeholder="🔑  ********"
-            onChange={(e) => setPassword(e.target.value)}
-            value={password}
-            type="password"
-            name="password"
-            id="password"
-          />
+          <PasswordInput action={setPassword} value={password}/>
         </div>
 
         <Button primary type="submit" title="click here to log in">
