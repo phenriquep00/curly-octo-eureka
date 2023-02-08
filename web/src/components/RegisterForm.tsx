@@ -8,7 +8,6 @@ export function RegisterForm() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  // TODO: fix X axis paddings for inputs
 
   const handleCreateNewUser = () => {};
 
@@ -17,16 +16,20 @@ export function RegisterForm() {
       <h1 className="text-ctp-text font-semibold text-lg">
         Register a account{" "}
       </h1>
-      <form action="" onSubmit={handleCreateNewUser}>
+      <form
+        action=""
+        onSubmit={handleCreateNewUser}
+        className="flex items-center gap-4 justify-center rounded-lg flex-col min-w-full"
+      >
         <div className="flex flex-col w-full mt-4 mb-4 gap-6">
-          <TextInput
-            action={setName}
-            value={name}
-            placeholder="🤔 Name"
+          <TextInput action={setName} value={name} placeholder="🤔 Name" />
+          <EmailInput action={setEmail} value={email} placeholder={"Email"} />
+          <PasswordInput
+            action={setPassword}
+            value={password}
+            placeholder={"Password"}
           />
-          <EmailInput action={setEmail} value={email} placeholder={"Email"}/>
-          <PasswordInput action={setPassword} value={password} placeholder={"Password"}/>
-        </div> 
+        </div>
       </form>
     </div>
   );
