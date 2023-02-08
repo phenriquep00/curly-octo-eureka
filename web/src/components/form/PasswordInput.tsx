@@ -1,4 +1,4 @@
-interface IPasswordInput {
+export interface IPasswordInput {
     value: string;
     placeholder?: string;
     action: (e: string) => void;

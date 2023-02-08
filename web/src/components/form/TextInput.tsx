@@ -10,10 +10,11 @@ interface ITextInput {
         className="p-4 rounded-md bg-ctp-surface2 border-2 border-ctp-overlay1 text-ctp-text text-md font-medium placeholder:font-medium placeholder:text-ctp-subtext0 focus:bg-ctp-crust focus:ring-2 ring-ctp-green focus:outline-none focus:border-none ring-offset-1 ring-offset-ctp-crust transition-all"
         placeholder={placeholder}
         onChange={(e) => action(e.target.value)}
+        autoComplete="false"
         value={value}
-        type="email"
-        name="email"
-        id="email"
+        type="text"
+        name="hidden"
+        id="username"
       />
     );
   }
