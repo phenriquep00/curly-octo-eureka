@@ -3,12 +3,16 @@ import { TextInput } from "./form/TextInput";
 import { EmailInput } from "./form/EmailInput";
 import { PasswordInput } from "./form/PasswordInput";
 import { VerifyPasswordInput } from "./form/VerifyPasswordInput";
+import { Button } from "./Button";
+import ReactLoading from "react-loading";
 
 export function RegisterForm() {
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [matchPassword, setMatchPassword] = useState<string>("");
+
+  const [loading, setLoading] = useState(false);
 
   const handleCreateNewUser = () => {};
 
@@ -36,6 +40,22 @@ export function RegisterForm() {
             value={matchPassword}
             placeholder={"Confirm password"}
           />
+
+          <div className="flex bottom-4 w-4/5 flex-col gap-1 border-t border-ctp-overlay0 self-center"></div>
+          {/* options division */}
+
+
+          <div className="flex w-full self-center justify-center justify-self-center">
+            <Button primary type="submit" title="click here to log in">
+              {loading ? (
+                <div className="flex justify-center items-center ">
+                  <ReactLoading type={"cylon"} width={"40px"} height={"30px"} />
+                </div>
+              ) : (
+                "Create account"
+              )}
+            </Button>
+          </div>
         </div>
       </form>
     </div>
